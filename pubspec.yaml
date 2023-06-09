@@ -40,6 +40,8 @@ dependencies:
   weather_icons: ^3.0.0
   permission_handler: ^10.2.0
   intl: ^0.18.1
+  sliding_switch: ^1.1.0
+  gauge_indicator: ^0.3.3
 
 dev_dependencies:
   flutter_test:

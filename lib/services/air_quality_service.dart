@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:intl/intl.dart';
 import 'package:meteo1/models/home_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -16,9 +17,15 @@ class AirQualityService {
         desiredAccuracy: LocationAccuracy.high);
     LATITUDE = position.latitude.toString();
     LONGITUDE = position.longitude.toString();
-    // log("$LATITUDE" + " " + "$LONGITUDE");
+    DateTime now = DateTime.now();
+    DateTime yesterday = DateTime(now.year, now.month, now.day - 1);
+    String y1 = DateFormat('yyyy-MM-dd').format(yesterday);
+    log("${y1}");
+    // after three days
+    DateTime tomorrow = DateTime(now.year, now.month, now.day + 1);
+    String t1 = DateFormat('yyyy-MM-dd').format(tomorrow);
     String url =
-        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$LATITUDE&longitude=$LONGITUDE&hourly=pm10,pm2_5,carbon_monoxide,sulphur_dioxide,ozone,uv_index,uv_index_clear_sky&domains=cams_global&start_date=2023-06-06&end_date=2023-06-06';
+        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$LATITUDE&longitude=$LONGITUDE&hourly=pm10,pm2_5,carbon_monoxide,sulphur_dioxide,ozone,uv_index,uv_index_clear_sky&domains=cams_global&start_date=${y1}&end_date=${t1}';
     final response = await http.get(Uri.parse(url));
     if (await Permission.location.serviceStatus.isEnabled) {
       var status = await Permission.location.status;

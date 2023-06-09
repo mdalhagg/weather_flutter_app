@@ -1,8 +1,8 @@
 class AirQualityModal {
-  double? latitude;
-  double? longitude;
-  double? generationtimeMs;
-  int? utcOffsetSeconds;
+  dynamic? latitude;
+  dynamic? longitude;
+  dynamic? generationtimeMs;
+  dynamic? utcOffsetSeconds;
   String? timezone;
   String? timezoneAbbreviation;
   HourlyUnits? hourlyUnits;
@@ -54,13 +54,31 @@ class HourlyUnits {
   String? time;
   String? pm10;
   String? pm25;
+  String? carbonMonoxide;
+  String? sulphurDioxide;
+  String? ozone;
+  String? uvIndex;
+  String? uvIndexClearSky;
 
-  HourlyUnits({this.time, this.pm10, this.pm25});
+  HourlyUnits(
+      {this.time,
+      this.pm10,
+      this.pm25,
+      this.carbonMonoxide,
+      this.sulphurDioxide,
+      this.ozone,
+      this.uvIndex,
+      this.uvIndexClearSky});
 
   HourlyUnits.fromJson(Map<String, dynamic> json) {
     time = json['time'];
     pm10 = json['pm10'];
     pm25 = json['pm2_5'];
+    carbonMonoxide = json['carbon_monoxide'];
+    sulphurDioxide = json['sulphur_dioxide'];
+    ozone = json['ozone'];
+    uvIndex = json['uv_index'];
+    uvIndexClearSky = json['uv_index_clear_sky'];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,21 +86,44 @@ class HourlyUnits {
     data['time'] = this.time;
     data['pm10'] = this.pm10;
     data['pm2_5'] = this.pm25;
+    data['carbon_monoxide'] = this.carbonMonoxide;
+    data['sulphur_dioxide'] = this.sulphurDioxide;
+    data['ozone'] = this.ozone;
+    data['uv_index'] = this.uvIndex;
+    data['uv_index_clear_sky'] = this.uvIndexClearSky;
     return data;
   }
 }
 
 class Hourly {
   List<String>? time;
-  List<double>? pm10;
-  List<double>? pm25;
+  List<dynamic>? pm10;
+  List<dynamic>? pm25;
+  List<dynamic>? carbonMonoxide;
+  List<dynamic>? sulphurDioxide;
+  List<dynamic>? ozone;
+  List<dynamic>? uvIndex;
+  List<dynamic>? uvIndexClearSky;
 
-  Hourly({this.time, this.pm10, this.pm25});
+  Hourly(
+      {this.time,
+      this.pm10,
+      this.pm25,
+      this.carbonMonoxide,
+      this.sulphurDioxide,
+      this.ozone,
+      this.uvIndex,
+      this.uvIndexClearSky});
 
   Hourly.fromJson(Map<String, dynamic> json) {
     time = json['time'].cast<String>();
-    pm10 = json['pm10'].cast<double>();
-    pm25 = json['pm2_5'].cast<double>();
+    pm10 = json['pm10'].cast<dynamic>();
+    pm25 = json['pm2_5'].cast<dynamic>();
+    carbonMonoxide = json['carbon_monoxide'].cast<dynamic>();
+    sulphurDioxide = json['sulphur_dioxide'].cast<dynamic>();
+    ozone = json['ozone'].cast<dynamic>();
+    uvIndex = json['uv_index'].cast<dynamic>();
+    uvIndexClearSky = json['uv_index_clear_sky'].cast<dynamic>();
   }
 
   Map<String, dynamic> toJson() {
@@ -90,6 +131,11 @@ class Hourly {
     data['time'] = this.time;
     data['pm10'] = this.pm10;
     data['pm2_5'] = this.pm25;
+    data['carbon_monoxide'] = this.carbonMonoxide;
+    data['sulphur_dioxide'] = this.sulphurDioxide;
+    data['ozone'] = this.ozone;
+    data['uv_index'] = this.uvIndex;
+    data['uv_index_clear_sky'] = this.uvIndexClearSky;
     return data;
   }
 }

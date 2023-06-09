@@ -1,15 +1,9 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:meteo1/controllers/air_quality_controller.dart';
 import 'package:meteo1/controllers/home_controller.dart';
-import 'package:meteo1/models/home_model.dart';
-import 'package:meteo1/services/home_service.dart';
 import 'package:meteo1/widgets/air_qualtiy.dart';
 import 'package:meteo1/widgets/currant_weather.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:meteo1/widgets/weekly_forecast.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -30,7 +24,7 @@ class _HomeViewState extends State<HomeView> {
         homeController.fetch();
       });
     });
-        homeController.fetch();
+    homeController.fetch();
     airQualityController.addListener(() {
       setState(() {
         airQualityController.fetch();
@@ -47,7 +41,11 @@ class _HomeViewState extends State<HomeView> {
 
     ;
     _ui_air_quality() {
-      return AirQuality(airQualityController.data , homeController.data);
+      return AirQuality(airQualityController.data, homeController.data);
+    }
+
+    _ui_week_forecast() {
+      return WeeklyForecast();
     }
 
     return Scaffold(
@@ -111,7 +109,7 @@ class _HomeViewState extends State<HomeView> {
               _ui_air_quality(),
               const SizedBox(height: 20),
               // last widget
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -123,316 +121,18 @@ class _HomeViewState extends State<HomeView> {
                       fontSize: 25,
                     ),
                   ),
-                  Text(
-                    "Next Month >",
-                    style: TextStyle(
-                      color: Color.fromARGB(233, 173, 152, 201),
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/details');
+                    },
+                    icon: const Icon(
+                      Icons.navigate_next,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: math.max(220, 100),
-                ),
-                child: Wrap(
-                  spacing: 10,
-                  runSpacing: 0,
-                  children: [
-                    Flexible(
-                        flex: 2,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          elevation: 5,
-                          color: Color.fromARGB(255, 176, 100, 235),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color.fromARGB(255, 219, 96, 216),
-                                  Color.fromARGB(255, 86, 100, 237)
-                                ],
-                              ),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'SUN',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    '12 - june',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 217, 217, 217),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Icon(
-                                    Icons.wb_sunny_outlined,
-                                    color: Color.fromARGB(255, 216, 216, 216),
-                                    size: 50,
-                                  ),
-                                  Text(
-                                    '24°',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                    ),
-                                  ),
-                                  Text(
-                                    '46',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 217, 217, 217),
-                                      backgroundColor:
-                                          Color.fromARGB(255, 255, 133, 133),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )),
-                    Flexible(
-                        flex: 2,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          elevation: 5,
-                          color: Color.fromARGB(255, 176, 100, 235),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color.fromARGB(255, 255, 255, 255),
-                                  Color.fromARGB(255, 234, 234, 234)
-                                ],
-                              ),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'SUN',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    '12 - june',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 132, 132, 132),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Icon(
-                                    Icons.wb_sunny_outlined,
-                                    color: Color.fromARGB(255, 92, 92, 92),
-                                    size: 50,
-                                  ),
-                                  Text(
-                                    '24°',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                    ),
-                                  ),
-                                  Text(
-                                    '46',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      backgroundColor:
-                                          Color.fromARGB(255, 255, 133, 133),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )),
-                    Flexible(
-                        flex: 2,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          elevation: 5,
-                          color: Color.fromARGB(255, 176, 100, 235),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color.fromARGB(255, 255, 255, 255),
-                                  Color.fromARGB(255, 234, 234, 234)
-                                ],
-                              ),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'SUN',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    '12 - june',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 132, 132, 132),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Icon(
-                                    Icons.wb_sunny_outlined,
-                                    color: Color.fromARGB(255, 92, 92, 92),
-                                    size: 50,
-                                  ),
-                                  Text(
-                                    '24°',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                    ),
-                                  ),
-                                  Text(
-                                    '46',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      backgroundColor:
-                                          Color.fromARGB(255, 255, 133, 133),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )),
-                    Flexible(
-                        flex: 2,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          elevation: 5,
-                          color: Color.fromARGB(255, 176, 100, 235),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color.fromARGB(255, 255, 255, 255),
-                                  Color.fromARGB(255, 234, 234, 234)
-                                ],
-                              ),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'SUN',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    '12 - june',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 132, 132, 132),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Icon(
-                                    Icons.wb_sunny_outlined,
-                                    color: Color.fromARGB(255, 92, 92, 92),
-                                    size: 50,
-                                  ),
-                                  Text(
-                                    '24°',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                    ),
-                                  ),
-                                  Text(
-                                    '46',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      backgroundColor:
-                                          Color.fromARGB(255, 255, 133, 133),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )),
-                  ],
-                ),
-              ),
+              const SizedBox(height: 10),
+              _ui_week_forecast(),
             ]),
           ),
         ));

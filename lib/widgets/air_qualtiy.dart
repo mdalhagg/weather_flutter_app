@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:meteo1/controllers/air_quality_controller.dart';
 import 'package:meteo1/models/home_model.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 Widget AirQuality(data, data1) {
   dynamic? _data = data;
-  Hourly? _data1 = data1;
+  dynamic? _data1 = data1;
+
   if (_data == null || _data1 == null) {
     return SizedBox(
         width: double.infinity,
@@ -79,28 +81,34 @@ Widget AirQuality(data, data1) {
               )),
         ));
   } else {
-    log("${_data1!.toJson()}");
+    _ui(String icon, String text, dynamic data, dynamic degree) {
+      DateTime now = DateTime.now();
+      // get hour
+      int hour = now.hour;
+      // log("${hour.toString()}");
 
-    _ui(String icon) {
       return Flexible(
-        flex: 2,
+        flex: 6,
+        fit: FlexFit.tight,
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(WeatherIcons.fromString("$icon"),
+            Icon(WeatherIcons.fromString(icon),
                 color: const Color.fromARGB(255, 149, 149, 149), size: 20),
             const SizedBox(width: 10),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('xxxxx',
-                    style: TextStyle(
+                Text(text,
+                    style: const TextStyle(
                       color: Color.fromARGB(233, 114, 114, 114),
                       fontWeight: FontWeight.bold,
                       fontSize: 10,
                     )),
-                Text('24°',
+                Text('${data} ${degree}',
                     style: TextStyle(
                       color: Color.fromARGB(233, 0, 0, 0),
                       fontWeight: FontWeight.bold,
@@ -134,7 +142,7 @@ Widget AirQuality(data, data1) {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -159,7 +167,7 @@ Widget AirQuality(data, data1) {
                                     ))
                               ]),
                           const SizedBox(height: 20),
-                          const Row(
+                          Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CircleAvatar(
@@ -167,7 +175,12 @@ Widget AirQuality(data, data1) {
                                   backgroundColor:
                                       Color.fromARGB(255, 255, 255, 255),
                                   radius: 20,
-                                  child: Icon(Icons.refresh, size: 20),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        // _data = null;
+                                      },
+                                      icon:
+                                          const Icon(Icons.refresh, size: 20)),
                                 ),
                               ])
                         ]),
@@ -175,12 +188,25 @@ Widget AirQuality(data, data1) {
                       height: 10,
                     ),
                     Wrap(spacing: 40, runSpacing: 30, children: [
-                      _ui("wi-day-cloudy"),
-                      _ui("wi-cloudy-gusts"),
-                      _ui("wi-raindrops"),
-                      _ui("wi-day-showers"),
-                      _ui("wi-day-haze"),
-                      _ui("wi-windy"),
+                      _ui("wi-day-cloudy", "Reel Feels", null, null),
+                      _ui(
+                          "wi-cloudy-gusts",
+                          "Wind",
+                          _data1!.hourly!.toJson()['windspeed_10m'][10],
+                          _data1!.hourlyUnits!.windspeed10m),
+                      _ui(
+                          "wi-raindrops",
+                          "SO2",
+                          _data!.hourly!.toJson()['sulphur_dioxide'][10],
+                          _data!.hourlyUnits!.sulphurDioxide),
+                      _ui("wi-day-showers", "Chance of \n Rain", null, null),
+                      _ui(
+                          "wi-day-haze",
+                          "UV Index",
+                          _data!.hourly!.toJson()['uv_index'][10],
+                          _data!.hourlyUnits!.uvIndex),
+                      _ui("wi-windy", "O3",
+                          _data!.hourly!.toJson()['ozone'][10], "o3"),
                     ]),
                   ],
                 ),
