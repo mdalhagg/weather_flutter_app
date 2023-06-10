@@ -18,11 +18,9 @@ class AirQualityService {
     LATITUDE = position.latitude.toString();
     LONGITUDE = position.longitude.toString();
     DateTime now = DateTime.now();
-    DateTime yesterday = DateTime(now.year, now.month, now.day - 1);
+    DateTime yesterday = DateTime(now.year, now.month, now.day);
     String y1 = DateFormat('yyyy-MM-dd').format(yesterday);
-    log("${y1}");
-    // after three days
-    DateTime tomorrow = DateTime(now.year, now.month, now.day + 1);
+    DateTime tomorrow = DateTime(now.year, now.month, now.day + 2);
     String t1 = DateFormat('yyyy-MM-dd').format(tomorrow);
     String url =
         'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$LATITUDE&longitude=$LONGITUDE&hourly=pm10,pm2_5,carbon_monoxide,sulphur_dioxide,ozone,uv_index,uv_index_clear_sky&domains=cams_global&start_date=${y1}&end_date=${t1}';

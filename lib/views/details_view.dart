@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gauge_indicator/gauge_indicator.dart';
+import 'package:meteo1/controllers/air_quality_controller.dart';
+import 'package:meteo1/controllers/home_controller.dart';
+import 'package:meteo1/widgets/ui_gauge.dart';
 import 'package:meteo1/widgets/weekly_forecast.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 
@@ -11,8 +13,27 @@ class DetailsView extends StatefulWidget {
 }
 
 class _DetailsViewState extends State<DetailsView> {
+  final AirQualityController airQualityController = AirQualityController();
+  final HomeController homeController = HomeController();
+  void initState() {
+    super.initState();
+    airQualityController.addListener(() {
+      setState(() {
+        airQualityController.fetch();
+      });
+    });
+    airQualityController.fetch();
+    homeController.addListener(() {
+      setState(() {
+        homeController.fetch();
+      });
+    });
+    homeController.fetch();
+  }
+
   @override
   Widget build(BuildContext context) {
+    dynamic data = homeController.data;
     bool light0 = true;
     bool light1 = false;
 
@@ -26,7 +47,11 @@ class _DetailsViewState extends State<DetailsView> {
       },
     );
     _ui_week_forecast() {
-      return WeeklyForecast();
+      return WeeklyForecast(airQualityController.data, homeController.data);
+    }
+
+    uiGauge() {
+      return UiGauge(homeController.data);
     }
 
     return Scaffold(
@@ -56,10 +81,10 @@ class _DetailsViewState extends State<DetailsView> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   CircleAvatar(
-                                    foregroundColor:
-                                        Color.fromARGB(255, 0, 0, 0),
-                                    backgroundColor:
-                                        Color.fromARGB(255, 255, 255, 255),
+                                    // foregroundColor:
+                                    // Color.fromARGB(255, 0, 0, 0),
+                                    // backgroundColor:
+                                    //     Color.fromARGB(255, 255, 255, 255),
                                     radius: 30,
                                     child: IconButton(
                                       onPressed: () {
@@ -77,21 +102,21 @@ class _DetailsViewState extends State<DetailsView> {
                                             Color.fromARGB(255, 153, 145, 251),
                                         shadows: [
                                           BoxShadow(
-                                            color: Color.fromARGB(255, 0, 0, 0),
+                                            // color: Color.fromARGB(255, 0, 0, 0),
                                             blurRadius: 2,
                                             offset: Offset(1, 1),
                                           )
                                         ]),
                                     Text('Details',
                                         style: TextStyle(
-                                          color: Colors.black,
+                                          // color: Colors.black,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                         )),
                                   ]),
                                   const CircleAvatar(
-                                    backgroundColor:
-                                        Color.fromARGB(255, 255, 239, 150),
+                                    // backgroundColor:
+                                    // Color.fromARGB(255, 255, 239, 150),
                                     radius: 30,
                                     child: Icon(Icons.person),
                                   ),
@@ -131,11 +156,11 @@ class _DetailsViewState extends State<DetailsView> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             _ui_week_forecast(),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                           ],
@@ -147,60 +172,13 @@ class _DetailsViewState extends State<DetailsView> {
                     height: 10,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 300,
-                      child: AnimatedRadialGauge(
-                        /// The animation duration.
-                        duration: const Duration(milliseconds: 500),
-
-                        /// Gauge value.
-                        value: 20,
-
-                        /// Optionally, you can configure your gauge, providing additional
-                        /// styles and transformers.
-                        axis: GaugeAxis(
-                          /// Render the gauge as a 260-degree arc.
-                          /// min: 0,
-                          max: 100,
-                          degrees: 300,
-
-                          /// Display the green value progress.
-                          transformer: GaugeAxisTransformer.progress(
-                              color: Color.fromARGB(200, 255, 255, 255),
-                              blendColors: true,
-                              reversed: true),
-
-                          /// Set the background color and axis thickness.
-                          style: const GaugeAxisStyle(
-                            thickness: 20,
-                            background: Color.fromARGB(255, 80, 100, 240),
-                          ),
-
-                          /// Define the pointer that will indicate the progress.
-                          pointer: RoundedTrianglePointer(
-                            size: 20,
-                            backgroundColor: Colors.black,
-                            borderRadius: 2,
-                            border: const GaugePointerBorder(
-                              color: Colors.white,
-                              width: 2,
-                            ),
-                          ),
-                        ),
-                        builder: (context, child, value) => RadialGaugeLabel(
-                          value: 20.0,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 46,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                      child: uiGauge(),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),

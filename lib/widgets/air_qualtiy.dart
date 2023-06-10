@@ -85,7 +85,6 @@ Widget AirQuality(data, data1) {
       DateTime now = DateTime.now();
       // get hour
       int hour = now.hour;
-      // log("${hour.toString()}");
 
       return Flexible(
         flex: 6,

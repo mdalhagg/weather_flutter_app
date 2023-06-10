@@ -35,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    _ui_currant_weather() {
+    uICurrentWeather() {
       return CurrantWeather(homeController.data);
     }
 
@@ -45,16 +45,16 @@ class _HomeViewState extends State<HomeView> {
     }
 
     _ui_week_forecast() {
-      return WeeklyForecast();
+      return WeeklyForecast(airQualityController.data, homeController.data);
     }
 
     return Scaffold(
-        backgroundColor: Color.fromARGB(252, 241, 229, 241),
+        // backgroundColor: Color.fromARGB(252, 241, 229, 241),
         appBar: AppBar(
             elevation: 0,
             toolbarHeight: 80,
             centerTitle: true,
-            backgroundColor: Color.fromARGB(0, 255, 150, 229),
+            // backgroundColor: Color.fromARGB(0, 255, 150, 229),
             title: const Wrap(
               children: [
                 Row(
@@ -62,8 +62,8 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      foregroundColor: Color.fromARGB(255, 0, 0, 0),
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                      // foregroundColor: Color.fromARGB(255, 0, 0, 0),
+                      // backgroundColor: Color.fromARGB(255, 92, 92, 92),
                       radius: 30,
                       child: Icon(Icons.menu_rounded, size: 30),
                     ),
@@ -80,13 +80,13 @@ class _HomeViewState extends State<HomeView> {
                           ]),
                       Text('Home',
                           style: TextStyle(
-                            color: Colors.black,
+                            // color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           )),
                     ]),
                     CircleAvatar(
-                      backgroundColor: Color.fromARGB(255, 255, 239, 150),
+                      // backgroundColor: Color.fromARGB(255, 92, 92, 92),
                       radius: 30,
                       child: Icon(Icons.person),
                     ),
@@ -95,13 +95,13 @@ class _HomeViewState extends State<HomeView> {
               ],
             )),
         body: Container(
-          color: Color.fromARGB(255, 241, 229, 241),
+          // color: Color.fromARGB(255, 241, 229, 241),
           width: double.infinity,
           height: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(children: [
-              _ui_currant_weather(),
+              uICurrentWeather(),
               // first widget
 
               const SizedBox(height: 20),
@@ -116,7 +116,7 @@ class _HomeViewState extends State<HomeView> {
                   Text(
                     "Weekly forecast",
                     style: TextStyle(
-                      color: Color.fromARGB(233, 0, 0, 0),
+                      // color: Color.fromARGB(233, 0, 0, 0),
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
                     ),
@@ -133,6 +133,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               const SizedBox(height: 10),
               _ui_week_forecast(),
+              const SizedBox(height: 10),
             ]),
           ),
         ));

@@ -42,10 +42,14 @@ dependencies:
   intl: ^0.18.1
   sliding_switch: ^1.1.0
   gauge_indicator: ^0.3.3
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator:
+  build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

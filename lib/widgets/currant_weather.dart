@@ -6,7 +6,6 @@ import 'package:weather_icons/weather_icons.dart';
 
 Widget CurrantWeather(data) {
   dynamic? _data = data;
-  String? icon = 'wi-day-sunny';
   DateTime? now = DateTime.now();
   String? Day = DateFormat.EEEE().format(now);
   String? Time = DateFormat.jm().format(now);
@@ -42,26 +41,28 @@ Widget CurrantWeather(data) {
   } else {
     dynamic? weather = data!.currentWeather!.weathercode;
     dynamic? day = data!.currentWeather;
+
     _ui_weather() {
+      String? icon = 'wi-day-sunny';
       if (day!.isDay == 1) {
         if (weather == 0) {
           // Clear sky
           icon = "wi-day-sunny";
         }
-        if (weather == 1 && weather == 2 && weather == 3) {
+        if (weather == 1 || weather == 2 || weather == 3) {
           // partly cloudy
-          icon = "wi-night-alt-partly-cloudy";
+          icon = "wi-day-cloudy";
         }
-        if (weather == 45 && weather == 46) {
+        if (weather == 45 || weather == 46) {
           icon = "wi-fog";
         }
-        if (weather == 51 && weather == 52 && weather == 53 && weather == 54) {
+        if (weather == 51 || weather == 52 || weather == 53 || weather == 54) {
           icon = "wi-sleet";
         }
-        if (weather == 56 && weather == 57) {
+        if (weather == 56 || weather == 57) {
           icon = "wi-snowflake-cold";
         }
-        if (weather == 61 && weather == 63 && weather == 65) {
+        if (weather == 61 || weather == 63 || weather == 65) {
           icon = "wi-rain";
         }
       } else {
@@ -69,20 +70,20 @@ Widget CurrantWeather(data) {
           // Clear sky
           icon = "wi-night-moon";
         }
-        if (weather == 1 && weather == 2 && weather == 3) {
+        if (weather == 1 || weather == 2 || weather == 3) {
           // partly cloudy
-          icon = "wi-night-alt-partly-cloudy";
+          icon = "wi-night-cloudy";
         }
-        if (weather == 45 && weather == 46) {
+        if (weather == 45 || weather == 46) {
           icon = "wi-fog";
         }
-        if (weather == 51 && weather == 52 && weather == 53 && weather == 54) {
+        if (weather == 51 || weather == 52 || weather == 53 || weather == 54) {
           icon = "wi-sleet";
         }
-        if (weather == 56 && weather == 57) {
+        if (weather == 56 || weather == 57) {
           icon = "wi-snowflake-cold";
         }
-        if (weather == 61 && weather == 63 && weather == 65) {
+        if (weather == 61 || weather == 63 || weather == 65) {
           icon = "wi-rain";
         }
       }
@@ -113,18 +114,19 @@ Widget CurrantWeather(data) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 0),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Center(
-                                child: Icon(WeatherIcons.fromString("$icon"),
-                                    color: Colors.white, size: 120)),
+                                child: Icon(
+                                    WeatherIcons.fromString("${_ui_weather()}"),
+                                    color: Colors.white,
+                                    size: 110)),
                             Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
@@ -135,9 +137,9 @@ Widget CurrantWeather(data) {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const Text(
-                                  'Feels Like 24°',
-                                  style: TextStyle(
+                                Text(
+                                  'Feels Like ${data!.currentWeather!.temperature.toInt() + 3}°',
+                                  style: const TextStyle(
                                     color: Color.fromARGB(233, 238, 221, 255),
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal,
@@ -159,7 +161,9 @@ Widget CurrantWeather(data) {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                    "${icon!.substring(3).replaceAll("-", " ")}",
+                                    _ui_weather()
+                                        .substring(3)
+                                        .replaceAll("-", " "),
                                     style: const TextStyle(
                                       color: Color.fromARGB(233, 238, 221, 255),
                                       fontWeight: FontWeight.bold,
@@ -174,7 +178,7 @@ Widget CurrantWeather(data) {
                                         fontWeight: FontWeight.normal)),
                               ],
                             ),
-                            Icon(WeatherIcons.fromString("$icon"),
+                            Icon(WeatherIcons.fromString("${_ui_weather()}"),
                                 color: const Color.fromARGB(167, 171, 171, 171),
                                 size: 50),
                             Icon(WeatherIcons.fromString("wi-strong-wind"),
