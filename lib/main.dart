@@ -9,7 +9,7 @@ void main() {
       appBarTheme: const AppBarTheme(
         backgroundColor: Color.fromARGB(255, 241, 229, 241),
         foregroundColor: Colors.black,
-      ), colorScheme: const ColorScheme(background: Colors.white),
+      ), colorScheme:  ColorScheme.fromSeed(seedColor: Colors.purpleAccent, brightness: Brightness.light),
     ),
     darkTheme: ThemeData(
       useMaterial3: true,
