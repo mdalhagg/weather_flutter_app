@@ -25,23 +25,17 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     // location controller
     check_location.addListener(() {
-      setState(() {
-        check_location.getCurrentLocation();
-      });
+      setState(() {});
     });
     check_location.getCurrentLocation();
     // home controller
     homeController.addListener(() {
-      setState(() {
-        homeController.fetch();
-      });
+      setState(() {});
     });
     homeController.fetch();
     // air quality controller
     airQualityController.addListener(() {
-      setState(() {
-        airQualityController.fetch();
-      });
+      setState(() {});
     });
     airQualityController.fetch();
   }

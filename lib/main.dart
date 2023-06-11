@@ -12,7 +12,6 @@ void main() {
         foregroundColor: Colors.black,
       ),
     ),
-    // Theme.of(context).colorScheme(),
     darkTheme: ThemeData(
       useMaterial3: true,
       primaryColor: Colors.white,
