@@ -15,6 +15,7 @@ class DetailsView extends StatefulWidget {
 class _DetailsViewState extends State<DetailsView> {
   final AirQualityController airQualityController = AirQualityController();
   final HomeController homeController = HomeController();
+  @override
   void initState() {
     super.initState();
     airQualityController.addListener(() {
@@ -55,7 +56,7 @@ class _DetailsViewState extends State<DetailsView> {
     }
 
     return Scaffold(
-        backgroundColor: Color.fromARGB(252, 221, 206, 243),
+        backgroundColor: const Color.fromARGB(252, 221, 206, 243),
         body: SafeArea(
           child: Container(
             child: SingleChildScrollView(
@@ -145,13 +146,13 @@ class _DetailsViewState extends State<DetailsView> {
                                     textOff: "Day",
                                     textOn: "Month",
                                     contentSize: 17,
-                                    colorOn: Color.fromARGB(255, 0, 0, 0),
+                                    colorOn: const Color.fromARGB(255, 0, 0, 0),
                                     colorOff: const Color(0xff6682c0),
                                     background:
                                         const Color.fromARGB(255, 219, 96, 216),
                                     buttonColor: const Color(0xfff7f5f7),
                                     inactiveColor:
-                                        Color.fromARGB(255, 255, 255, 255),
+                                        const Color.fromARGB(255, 255, 255, 255),
                                   ),
                                 ],
                               ),
@@ -168,12 +169,12 @@ class _DetailsViewState extends State<DetailsView> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 300,
                       child: uiGauge(),

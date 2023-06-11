@@ -5,27 +5,26 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:intl/intl.dart';
-import 'package:meteo1/controllers/air_quality_controller.dart';
 import 'package:weather_icons/weather_icons.dart';
 
-Widget WeeklyForecast(Air_quality, Home) {
-  dynamic? _Air_quality = Air_quality;
-  dynamic? _home = Home;
+Widget WeeklyForecast(airQuality, Home) {
+  dynamic airQuality0 = airQuality;
+  dynamic home = Home;
   DateTime? now = DateTime.now();
   String format = DateFormat('HH').format(now);
 
-  if (_Air_quality == null || _home == null) {
-    return Container(
+  if (airQuality0 == null || home == null) {
+    return const SizedBox(
       height: 210,
-      child: const Center(
+      child: Center(
         child: CircularProgressIndicator(
           color: Color.fromARGB(255, 86, 100, 237),
         ),
       ),
     );
   } else {
-    int length = (_Air_quality!.hourly!.toJson()['time'].length).toInt();
-    dynamic? day = _home!.currentWeather;
+    int length = (airQuality0!.hourly!.toJson()['time'].length).toInt();
+    dynamic day = home!.currentWeather;
     _ui_weather(code) {
       String? icon = 'wi-day-sunny';
       if (day!.isDay == 1) {
@@ -86,9 +85,9 @@ Widget WeeklyForecast(Air_quality, Home) {
               itemBuilder: (context, index) {
                 DateTime now = DateTime.now();
                 DateTime time =
-                    DateTime.parse(_Air_quality.hourly.toJson()['time'][index]);
+                    DateTime.parse(airQuality0.hourly.toJson()['time'][index]);
                 DateTime date1 =
-                    DateTime.parse(_Air_quality.hourly.toJson()['time'][index]);
+                    DateTime.parse(airQuality0.hourly.toJson()['time'][index]);
                 String day = DateFormat.E().format(time);
                 String Month = DateFormat.MMMd().format(time);
                 String format1 = DateFormat('HH').format(date1);
@@ -101,7 +100,7 @@ Widget WeeklyForecast(Air_quality, Home) {
                           borderRadius: BorderRadius.circular(40)),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       elevation: 5,
-                      color: Color.fromARGB(255, 176, 100, 235),
+                      color: const Color.fromARGB(255, 176, 100, 235),
                       child: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -109,12 +108,12 @@ Widget WeeklyForecast(Air_quality, Home) {
                             end: Alignment.bottomRight,
                             colors: date1.day == now.day
                                 ? [
-                                    Color.fromARGB(255, 219, 219, 219),
-                                    Color.fromARGB(255, 86, 86, 86)
+                                    const Color.fromARGB(255, 219, 219, 219),
+                                    const Color.fromARGB(255, 86, 86, 86)
                                   ]
                                 : [
-                                    Color.fromARGB(255, 219, 96, 216),
-                                    Color.fromARGB(255, 86, 100, 237)
+                                    const Color.fromARGB(255, 219, 96, 216),
+                                    const Color.fromARGB(255, 86, 100, 237)
                                   ],
                           ),
                         ),
@@ -125,7 +124,7 @@ Widget WeeklyForecast(Air_quality, Home) {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "${day}",
+                                day,
                                 style: const TextStyle(
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   fontWeight: FontWeight.bold,
@@ -141,7 +140,7 @@ Widget WeeklyForecast(Air_quality, Home) {
                                 ),
                               ),
                               Icon(
-                                WeatherIcons.fromString(_ui_weather(_home.hourly
+                                WeatherIcons.fromString(_ui_weather(home.hourly
                                     .toJson()["weathercode"][index]
                                     .toInt())),
                                 color: const Color.fromARGB(255, 216, 216, 216),
@@ -149,7 +148,7 @@ Widget WeeklyForecast(Air_quality, Home) {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                '${_home.hourly.toJson()["temperature_2m"][index].toInt()}°',
+                                '${home.hourly.toJson()["temperature_2m"][index].toInt()}°',
                                 style: const TextStyle(
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   fontWeight: FontWeight.bold,
@@ -157,7 +156,7 @@ Widget WeeklyForecast(Air_quality, Home) {
                                 ),
                               ),
                               Card(
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(20),
                                         topRight: Radius.circular(20),
@@ -166,8 +165,8 @@ Widget WeeklyForecast(Air_quality, Home) {
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 elevation: 5,
                                 child: Text(
-                                  '${_home!.hourly.toJson()["winddirection_10m"][index].toInt()}',
-                                  style: TextStyle(
+                                  '${home!.hourly.toJson()["winddirection_10m"][index].toInt()}',
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 217, 217, 217),
                                     backgroundColor:
                                         Color.fromARGB(255, 255, 133, 133),

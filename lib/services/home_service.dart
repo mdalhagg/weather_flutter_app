@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:intl/intl.dart';
-import 'package:meteo1/models/home_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
@@ -24,7 +23,7 @@ class HomeService {
     DateTime tomorrow = DateTime(now.year, now.month, now.day + 2);
     String t1 = DateFormat('yyyy-MM-dd').format(tomorrow);
     String url =
-        'https://api.open-meteo.com/v1/forecast?latitude=$LATITUDE&longitude=$LONGITUDE&hourly=temperature_2m,relativehumidity_2m,precipitation,weathercode,windspeed_10m,winddirection_10m&current_weather=true&start_date=${y1}&end_date=${t1}';
+        'https://api.open-meteo.com/v1/forecast?latitude=$LATITUDE&longitude=$LONGITUDE&hourly=temperature_2m,relativehumidity_2m,precipitation,weathercode,windspeed_10m,winddirection_10m&current_weather=true&start_date=$y1&end_date=$t1';
     final response = await http.get(Uri.parse(url));
     if (await Permission.location.serviceStatus.isEnabled) {
       var status = await Permission.location.status;

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:meteo1/controllers/air_quality_controller.dart';
-import 'package:meteo1/controllers/home_controller.dart';
-import 'package:meteo1/widgets/weekly_forecast.dart';
-import 'package:sliding_switch/sliding_switch.dart';
 import 'package:gauge_indicator/gauge_indicator.dart';
 
 Widget UiGauge(data) {
-  dynamic? _data = data;
-  if (_data == null) {
+  dynamic data0 = data;
+  if (data0 == null) {
     return const Center(
       child: CircularProgressIndicator(
         color: Colors.white,
@@ -19,7 +15,7 @@ Widget UiGauge(data) {
       duration: const Duration(milliseconds: 500),
 
       /// Gauge value.
-      value: _data!.currentWeather!.windspeed.toDouble(),
+      value: data0!.currentWeather!.windspeed.toDouble(),
 
       /// Optionally, you can configure your gauge, providing additional
       /// styles and transformers.
@@ -37,8 +33,8 @@ Widget UiGauge(data) {
 
         /// Set the background color and axis thickness.
         style: GaugeAxisStyle(
-          thickness: _data!.currentWeather!.windspeed.toDouble(),
-          background: Color.fromARGB(255, 80, 100, 240),
+          thickness: data0!.currentWeather!.windspeed.toDouble(),
+          background: const Color.fromARGB(255, 80, 100, 240),
         ),
 
         /// Define the pointer that will indicate the progress.
@@ -53,7 +49,7 @@ Widget UiGauge(data) {
         ),
       ),
       builder: (context, child, value) => RadialGaugeLabel(
-        value: _data!.currentWeather!.windspeed.toDouble(),
+        value: data0!.currentWeather!.windspeed.toDouble(),
         style: const TextStyle(
           color: Colors.black,
           fontSize: 46,

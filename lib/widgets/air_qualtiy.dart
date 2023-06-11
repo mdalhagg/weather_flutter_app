@@ -1,15 +1,12 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:meteo1/controllers/air_quality_controller.dart';
-import 'package:meteo1/models/home_model.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 Widget AirQuality(data, data1) {
-  dynamic? _data = data;
-  dynamic? _data1 = data1;
+  dynamic data0 = data;
+  dynamic data10 = data1;
 
-  if (_data == null || _data1 == null) {
+  if (data0 == null || data10 == null) {
     return SizedBox(
         width: double.infinity,
         height: 200,
@@ -31,7 +28,7 @@ Widget AirQuality(data, data1) {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -45,7 +42,7 @@ Widget AirQuality(data, data1) {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Icon(WeatherIcons.fromString("wi-rain"),
-                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    color: const Color.fromARGB(255, 0, 0, 0),
                                     size: 25),
                                 const SizedBox(width: 10),
                                 const Text('Air Quality',
@@ -55,8 +52,8 @@ Widget AirQuality(data, data1) {
                                       fontSize: 20,
                                     ))
                               ]),
-                          SizedBox(height: 20),
-                          Row(
+                          const SizedBox(height: 20),
+                          const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CircleAvatar(
@@ -68,10 +65,10 @@ Widget AirQuality(data, data1) {
                                 ),
                               ])
                         ]),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Center(
+                    const Center(
                       child: CircularProgressIndicator(
                         color: Color.fromARGB(255, 86, 100, 237),
                       ),
@@ -107,8 +104,8 @@ Widget AirQuality(data, data1) {
                       fontWeight: FontWeight.bold,
                       fontSize: 10,
                     )),
-                Text('${data} ${degree}',
-                    style: TextStyle(
+                Text('$data $degree',
+                    style: const TextStyle(
                       color: Color.fromARGB(233, 0, 0, 0),
                       fontWeight: FontWeight.bold,
                       fontSize: 10,
@@ -141,7 +138,7 @@ Widget AirQuality(data, data1) {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -155,7 +152,7 @@ Widget AirQuality(data, data1) {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Icon(WeatherIcons.fromString("wi-rain"),
-                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    color: const Color.fromARGB(255, 0, 0, 0),
                                     size: 25),
                                 const SizedBox(width: 10),
                                 const Text('Air Quality',
@@ -170,9 +167,9 @@ Widget AirQuality(data, data1) {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CircleAvatar(
-                                  foregroundColor: Color.fromARGB(255, 0, 0, 0),
+                                  foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                                   backgroundColor:
-                                      Color.fromARGB(255, 255, 255, 255),
+                                      const Color.fromARGB(255, 255, 255, 255),
                                   radius: 20,
                                   child: IconButton(
                                       onPressed: () {
@@ -191,21 +188,21 @@ Widget AirQuality(data, data1) {
                       _ui(
                           "wi-cloudy-gusts",
                           "Wind",
-                          _data1!.hourly!.toJson()['windspeed_10m'][10],
-                          _data1!.hourlyUnits!.windspeed10m),
+                          data10!.hourly!.toJson()['windspeed_10m'][10],
+                          data10!.hourlyUnits!.windspeed10m),
                       _ui(
                           "wi-raindrops",
                           "SO2",
-                          _data!.hourly!.toJson()['sulphur_dioxide'][10],
-                          _data!.hourlyUnits!.sulphurDioxide),
+                          data0!.hourly!.toJson()['sulphur_dioxide'][10],
+                          data0!.hourlyUnits!.sulphurDioxide),
                       _ui("wi-day-showers", "Chance of \n Rain", null, null),
                       _ui(
                           "wi-day-haze",
                           "UV Index",
-                          _data!.hourly!.toJson()['uv_index'][10],
-                          _data!.hourlyUnits!.uvIndex),
+                          data0!.hourly!.toJson()['uv_index'][10],
+                          data0!.hourlyUnits!.uvIndex),
                       _ui("wi-windy", "O3",
-                          _data!.hourly!.toJson()['ozone'][10], "o3"),
+                          data0!.hourly!.toJson()['ozone'][10], "o3"),
                     ]),
                   ],
                 ),

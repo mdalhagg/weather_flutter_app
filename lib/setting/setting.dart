@@ -8,6 +8,6 @@ class Setting extends HiveObject {
   @override
   String toString() => 'Setting';
   @HiveField(0)
-  var primaryColor = Color(0xFF3F51B5);
+  var primaryColor = const Color(0xFF3F51B5);
 
 }

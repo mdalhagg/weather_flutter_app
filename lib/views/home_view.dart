@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:meteo1/controllers/air_quality_controller.dart';
 import 'package:meteo1/controllers/check_location_is_enable.dart';
@@ -81,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
                             BoxShadow(
                               color: Color.fromARGB(255, 0, 0, 0),
                               blurRadius: 2,
-                              offset: const Offset(1, 1),
+                              offset: Offset(1, 1),
                             )
                           ]),
                       Text('Home',
@@ -119,7 +117,7 @@ class _HomeViewState extends State<HomeView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Weekly forecast",
                     style: TextStyle(
                       // color: Color.fromARGB(233, 0, 0, 0),

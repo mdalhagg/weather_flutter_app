@@ -17,7 +17,7 @@ Widget WeeklyForecast(data) {
                   borderRadius: BorderRadius.circular(50)),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               elevation: 5,
-              color: Color.fromARGB(255, 176, 100, 235),
+              color: const Color.fromARGB(255, 176, 100, 235),
               child: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(

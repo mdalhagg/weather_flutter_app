@@ -21,7 +21,7 @@ class AirQualityService {
     DateTime tomorrow = DateTime(now.year, now.month, now.day + 2);
     String t1 = DateFormat('yyyy-MM-dd').format(tomorrow);
     String url =
-        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$LATITUDE&longitude=$LONGITUDE&hourly=pm10,pm2_5,carbon_monoxide,sulphur_dioxide,ozone,uv_index,uv_index_clear_sky&domains=cams_global&start_date=${y1}&end_date=${t1}';
+        'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$LATITUDE&longitude=$LONGITUDE&hourly=pm10,pm2_5,carbon_monoxide,sulphur_dioxide,ozone,uv_index,uv_index_clear_sky&domains=cams_global&start_date=$y1&end_date=$t1';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

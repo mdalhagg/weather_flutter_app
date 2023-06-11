@@ -1,8 +1,8 @@
 class AirQualityModal {
-  dynamic? latitude;
-  dynamic? longitude;
-  dynamic? generationtimeMs;
-  dynamic? utcOffsetSeconds;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic generationtimeMs;
+  dynamic utcOffsetSeconds;
   String? timezone;
   String? timezoneAbbreviation;
   HourlyUnits? hourlyUnits;
@@ -26,25 +26,25 @@ class AirQualityModal {
     timezone = json['timezone'];
     timezoneAbbreviation = json['timezone_abbreviation'];
     hourlyUnits = json['hourly_units'] != null
-        ? new HourlyUnits.fromJson(json['hourly_units'])
+        ? HourlyUnits.fromJson(json['hourly_units'])
         : null;
     hourly =
-        json['hourly'] != null ? new Hourly.fromJson(json['hourly']) : null;
+        json['hourly'] != null ? Hourly.fromJson(json['hourly']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['generationtime_ms'] = this.generationtimeMs;
-    data['utc_offset_seconds'] = this.utcOffsetSeconds;
-    data['timezone'] = this.timezone;
-    data['timezone_abbreviation'] = this.timezoneAbbreviation;
-    if (this.hourlyUnits != null) {
-      data['hourly_units'] = this.hourlyUnits!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['generationtime_ms'] = generationtimeMs;
+    data['utc_offset_seconds'] = utcOffsetSeconds;
+    data['timezone'] = timezone;
+    data['timezone_abbreviation'] = timezoneAbbreviation;
+    if (hourlyUnits != null) {
+      data['hourly_units'] = hourlyUnits!.toJson();
     }
-    if (this.hourly != null) {
-      data['hourly'] = this.hourly!.toJson();
+    if (hourly != null) {
+      data['hourly'] = hourly!.toJson();
     }
     return data;
   }
@@ -82,15 +82,15 @@ class HourlyUnits {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['time'] = this.time;
-    data['pm10'] = this.pm10;
-    data['pm2_5'] = this.pm25;
-    data['carbon_monoxide'] = this.carbonMonoxide;
-    data['sulphur_dioxide'] = this.sulphurDioxide;
-    data['ozone'] = this.ozone;
-    data['uv_index'] = this.uvIndex;
-    data['uv_index_clear_sky'] = this.uvIndexClearSky;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['time'] = time;
+    data['pm10'] = pm10;
+    data['pm2_5'] = pm25;
+    data['carbon_monoxide'] = carbonMonoxide;
+    data['sulphur_dioxide'] = sulphurDioxide;
+    data['ozone'] = ozone;
+    data['uv_index'] = uvIndex;
+    data['uv_index_clear_sky'] = uvIndexClearSky;
     return data;
   }
 }
@@ -127,15 +127,15 @@ class Hourly {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['time'] = this.time;
-    data['pm10'] = this.pm10;
-    data['pm2_5'] = this.pm25;
-    data['carbon_monoxide'] = this.carbonMonoxide;
-    data['sulphur_dioxide'] = this.sulphurDioxide;
-    data['ozone'] = this.ozone;
-    data['uv_index'] = this.uvIndex;
-    data['uv_index_clear_sky'] = this.uvIndexClearSky;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['time'] = time;
+    data['pm10'] = pm10;
+    data['pm2_5'] = pm25;
+    data['carbon_monoxide'] = carbonMonoxide;
+    data['sulphur_dioxide'] = sulphurDioxide;
+    data['ozone'] = ozone;
+    data['uv_index'] = uvIndex;
+    data['uv_index_clear_sky'] = uvIndexClearSky;
     return data;
   }
 }
