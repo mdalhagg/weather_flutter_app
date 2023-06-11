@@ -84,6 +84,7 @@ Widget WeeklyForecast(Air_quality, Home) {
             child: ListView.builder(
               dragStartBehavior: DragStartBehavior.start,
               itemBuilder: (context, index) {
+                DateTime now = DateTime.now();
                 DateTime time =
                     DateTime.parse(_Air_quality.hourly.toJson()['time'][index]);
                 DateTime date1 =
@@ -91,7 +92,7 @@ Widget WeeklyForecast(Air_quality, Home) {
                 String day = DateFormat.E().format(time);
                 String Month = DateFormat.MMMd().format(time);
                 String format1 = DateFormat('HH').format(date1);
-                // log("$format   $format1   $length");
+                log("$format   $format1   $length");
 
                 return Flexible(
                     flex: 2,
@@ -102,14 +103,19 @@ Widget WeeklyForecast(Air_quality, Home) {
                       elevation: 5,
                       color: Color.fromARGB(255, 176, 100, 235),
                       child: Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            colors: [
-                              Color.fromARGB(255, 219, 96, 216),
-                              Color.fromARGB(255, 86, 100, 237)
-                            ],
+                            colors: date1.day == now.day
+                                ? [
+                                    Color.fromARGB(255, 219, 219, 219),
+                                    Color.fromARGB(255, 86, 86, 86)
+                                  ]
+                                : [
+                                    Color.fromARGB(255, 219, 96, 216),
+                                    Color.fromARGB(255, 86, 100, 237)
+                                  ],
                           ),
                         ),
                         child: Padding(

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:meteo1/controllers/air_quality_controller.dart';
+import 'package:meteo1/controllers/check_location_is_enable.dart';
 import 'package:meteo1/controllers/home_controller.dart';
 import 'package:meteo1/widgets/air_qualtiy.dart';
 import 'package:meteo1/widgets/currant_weather.dart';
@@ -15,16 +18,26 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final HomeController homeController = HomeController();
   final AirQualityController airQualityController = AirQualityController();
+  final Check_location check_location = Check_location();
 
   @override
   void initState() {
     super.initState();
+    // location controller
+    check_location.addListener(() {
+      setState(() {
+        check_location.getCurrentLocation();
+      });
+    });
+    check_location.getCurrentLocation();
+    // home controller
     homeController.addListener(() {
       setState(() {
         homeController.fetch();
       });
     });
     homeController.fetch();
+    // air quality controller
     airQualityController.addListener(() {
       setState(() {
         airQualityController.fetch();
@@ -39,7 +52,6 @@ class _HomeViewState extends State<HomeView> {
       return CurrantWeather(homeController.data);
     }
 
-    ;
     _ui_air_quality() {
       return AirQuality(airQualityController.data, homeController.data);
     }
