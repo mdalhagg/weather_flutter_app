@@ -1,10 +1,8 @@
 import 'dart:developer';
 import 'package:intl/intl.dart';
-import 'package:meteo1/models/home_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class AirQualityService {
   static const API_KEY = 'your_api_key_here';
@@ -25,18 +23,6 @@ class AirQualityService {
     String url =
         'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=$LATITUDE&longitude=$LONGITUDE&hourly=pm10,pm2_5,carbon_monoxide,sulphur_dioxide,ozone,uv_index,uv_index_clear_sky&domains=cams_global&start_date=${y1}&end_date=${t1}';
     final response = await http.get(Uri.parse(url));
-    if (await Permission.location.serviceStatus.isEnabled) {
-      var status = await Permission.location.status;
-      if (status.isGranted) {
-        Map<Permission, PermissionStatus> status = await [
-          Permission.location,
-        ].request();
-      } else if (status.isDenied) {
-// Location permission is
-      }
-    } else {
-// Location permission is
-    }
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       // log('$data');
